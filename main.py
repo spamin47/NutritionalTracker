@@ -38,6 +38,22 @@ if __name__ == '__main__':
     testDict["dataset1"].append(1)
     print(testDict["dataset1"])
     # with open("test.json","w") as testFile:
-    #     json.dump("data1",testFile)
-    #     json.dump("data2",testFile)
-    print("test")
+    #     json.dump(testDict,testFile)
+        
+    with open("test.json","r") as testFile:
+        data = json.load(testFile)
+    print(data["dataset1"])
+
+
+
+JSON_DATABASE = {
+    "users":[
+        {
+         "name1":"name",
+         "caloriesConsumed": [], #each element is a different day
+         "Today_date":"##/##/##",
+         "weight":"#",
+         "DOB":"##/##/##"    
+        }
+    ] 
+}
