@@ -1,8 +1,7 @@
 import sys
-import mysql.connector
 import matplotlib.pyplot as plt
 import numpy as np
-
+import json as json
 # This is a sample Python script.
 
 # Press Shift+F10 to execute it or replace it with your code.
@@ -20,7 +19,6 @@ if __name__ == '__main__':
     print("Num of arguments: " + str(len(sys.argv)))
     print("print argument list",str(sys.argv))
     print(sys.executable)
-    print(mysql.connector.connect())
     print("test")
     # x = np.linspace(0, 2 * np.pi, 200)
     # y = np.sin(x)
@@ -33,14 +31,13 @@ if __name__ == '__main__':
     plt.plot(xpoints,ypoints)
     plt.show()
     
-    mydb = mysql.connector.connect(
-        host ="localhost",
-        user = "myUser",
-        password = "myPassword",
-        database = "myDatabase"
-    )
-    mycursor = mydb.cursor()
-    mycursor.execute("SHOW TABLES")
-    for x in mycursor:
-        print(x)
-    
+    testData = "data1"
+    testDict = {
+        "dataset1": [] 
+    }
+    testDict["dataset1"].append(1)
+    print(testDict["dataset1"])
+    # with open("test.json","w") as testFile:
+    #     json.dump("data1",testFile)
+    #     json.dump("data2",testFile)
+    print("test")
