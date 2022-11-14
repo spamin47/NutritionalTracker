@@ -1,1 +1,1 @@
-{"users": {"weight": "#lbs", "DOB": "##/##/##", "caloriesConsumed": [], "dates": []}}
+{"users": {"weight": "#lbs", "DOB": "##/##/##", "caloriesConsumed": [], "dates": []}, "john2": {"weight": 124.0, "DOB": "2003-03-02 00:00:00", "caloriesConsumed": [], "dates": []}, "john3": {"weight": 123.0, "DOB": "1002-03-02 00:00:00", "caloriesConsumed": [], "dates": []}, "john4": {"weight": 145.0, "DOB": "3001-02-23 00:00:00", "caloriesConsumed": [], "dates": []}}
