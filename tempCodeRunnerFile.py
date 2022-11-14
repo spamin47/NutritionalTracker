@@ -1,2 +1,2 @@
-with open("test.json","w") as testFile:
-        data = json.dump("test.json","data1")
+with open("db.json","w") as testFile:
+        json.dump(JSON_DATABASE,testFile)
