@@ -1,2 +1,5 @@
-with open("test.json","w") as testFile:
-        data = json.dump("test.json","data1")
+testDOB = str(input("Type in Date: "))
+# test = datetime.strptime(testDOB,'%m-%d-%Y')
+# testDOB2 = str(input("Type in Date: "))
+# test2 = datetime.strptime(testDOB,'%m-%d-%Y')
+# print(test == test2)

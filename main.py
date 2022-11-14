@@ -2,6 +2,8 @@ import sys
 import matplotlib.pyplot as plt
 import numpy as np
 import json as json
+import DBManager
+from datetime import datetime
 # This is a sample Python script.
 
 # Press Shift+F10 to execute it or replace it with your code.
@@ -20,16 +22,11 @@ if __name__ == '__main__':
     print("print argument list",str(sys.argv))
     print(sys.executable)
     print("test")
-    # x = np.linspace(0, 2 * np.pi, 200)
-    # y = np.sin(x)
-
-    # fig, ax = plt.subplots()
-    # ax.plot(x, y)
+    
+    # xpoints = np.array([0,6])
+    # ypoints = np.array([0,250])
+    # plt.plot(xpoints,ypoints)
     # plt.show()
-    xpoints = np.array([0,6])
-    ypoints = np.array([0,250])
-    plt.plot(xpoints,ypoints)
-    plt.show()
     
     testData = "data1"
     testDict = {
@@ -45,15 +42,44 @@ if __name__ == '__main__':
     print(data["dataset1"])
 
 
+# JSON_DATABASE = {
+#     "users":{ #each element is a different user
+#         "weight":"#lbs",
+#         "DOB":"##/##/##",
+#         "caloriesConsumed": [], #each element is a different day
+#         "dates":[]    
+        
+#     } 
+# }
+# user2 = { #each element is a different user
+#         "weight":"#lbs",
+#         "DOB":"##/##/##",
+#         "caloriesConsumed": [], #each element is a different day
+#         "dates":[]       
+#     } 
+# # print(str(JSON_DATABASE["users"][0]["name"]) == str(name))
+# with open("db.json","w") as testFile:
+#         json.dump(JSON_DATABASE,testFile)
+# user = {
+#     "name1":"name",
+#     "weight":"#lbs",
+#     "DOB":"##/##/##",
+#     "caloriesConsumed": [], #each element is a different day
+#     "Today_date":"##/##/##"    
+# }
+with open("db.json","r") as db:
+    database = json.load(db)
 
-JSON_DATABASE = {
-    "users":[
-        {
-         "name1":"name",
-         "caloriesConsumed": [], #each element is a different day
-         "Today_date":"##/##/##",
-         "weight":"#",
-         "DOB":"##/##/##"    
-        }
-    ] 
-}
+
+# testDOB = str(input("Type in Date: "))
+# test = datetime.strptime(testDOB,'%m-%d-%Y')
+# testDOB2 = str(input("Type in Date: "))
+# test2 = datetime.strptime(testDOB,'%m-%d-%Y')
+# print(test == test2)
+
+username = str(input("Enter your username: "))
+if(DBManager.checkForUser(database,username)):
+    print("User found!")
+    DBManager.recordDailyIntake(database,username)
+else:
+    DBManager.createNewUser(database)
