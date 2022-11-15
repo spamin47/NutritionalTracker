@@ -36,10 +36,30 @@ if __name__ == '__main__':
     # print(testDict["dataset1"])
     # # with open("test.json","w") as testFile:
     # #     json.dump(testDict,testFile)
-        
-    # with open("test.json","r") as testFile:
-    #     data = json.load(testFile)
-    # print(data["dataset1"])
+
+    with open('test.json','r') as testFile:
+        data = json.load(testFile)
+
+    # Testing for graphing from Json file with given format(name will change depending on what the user inputs), place after user intake for the day
+
+    # define x and y axis plot points, turn on grid
+    xAxis = data["john4"]["dates"]
+    yAxis = data["john4"]["caloriesConsumed"]
+    plt.grid(True)
+
+    # plots dates and calories
+    plt.plot(xAxis, yAxis, color = 'blue', marker = 'o')
+    plt.xlabel('date')
+    plt.ylabel('calories')
+
+    # fig = plt.figure()
+    # plt.bar(xAxis, yAxis, color = 'maroon')
+    # plt.xlabel('day')
+    # plt.ylabel('calories')
+
+    plt.show()
+
+
 
 ## Uncomment to reset database. Make sure to delete database file before hand
 # JSON_DATABASE = {
@@ -62,6 +82,7 @@ if __name__ == '__main__':
 # }
 with open("db.json","r") as db:
     database = json.load(db)
+
 
 username = str(input("Enter your username: "))
 if(DBManager.checkForUser(database,username)):
