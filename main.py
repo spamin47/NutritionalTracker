@@ -28,36 +28,29 @@ if __name__ == '__main__':
     # plt.plot(xpoints,ypoints)
     # plt.show()
     
-    testData = "data1"
-    testDict = {
-        "dataset1": [] 
-    }
-    testDict["dataset1"].append(1)
-    print(testDict["dataset1"])
-    # with open("test.json","w") as testFile:
-    #     json.dump(testDict,testFile)
+    # testData = "data1"
+    # testDict = {
+    #     "dataset1": [] 
+    # }
+    # testDict["dataset1"].append(1)
+    # print(testDict["dataset1"])
+    # # with open("test.json","w") as testFile:
+    # #     json.dump(testDict,testFile)
         
-    with open("test.json","r") as testFile:
-        data = json.load(testFile)
-    print(data["dataset1"])
+    # with open("test.json","r") as testFile:
+    #     data = json.load(testFile)
+    # print(data["dataset1"])
 
-
+## Uncomment to reset database. Make sure to delete database file before hand
 # JSON_DATABASE = {
-#     "users":{ #each element is a different user
+#     "test_user":{ #each element is a different user
 #         "weight":"#lbs",
 #         "DOB":"##/##/##",
-#         "caloriesConsumed": [], #each element is a different day
-#         "dates":[]    
+#         "caloriesConsumed": [0], #each element is a different day
+#         "dates":[0]    
         
 #     } 
 # }
-# user2 = { #each element is a different user
-#         "weight":"#lbs",
-#         "DOB":"##/##/##",
-#         "caloriesConsumed": [], #each element is a different day
-#         "dates":[]       
-#     } 
-# # print(str(JSON_DATABASE["users"][0]["name"]) == str(name))
 # with open("db.json","w") as testFile:
 #         json.dump(JSON_DATABASE,testFile)
 # user = {
@@ -70,16 +63,11 @@ if __name__ == '__main__':
 with open("db.json","r") as db:
     database = json.load(db)
 
-
-# testDOB = str(input("Type in Date: "))
-# test = datetime.strptime(testDOB,'%m-%d-%Y')
-# testDOB2 = str(input("Type in Date: "))
-# test2 = datetime.strptime(testDOB,'%m-%d-%Y')
-# print(test == test2)
-
 username = str(input("Enter your username: "))
 if(DBManager.checkForUser(database,username)):
     print("User found!")
-    DBManager.recordDailyIntake(database,username)
 else:
     DBManager.createNewUser(database)
+    
+while not DBManager.recordDailyIntake(database,username):
+    print()
