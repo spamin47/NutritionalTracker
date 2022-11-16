@@ -60,11 +60,8 @@ def recordDailyIntake(db,name:str) -> bool:
 
 def getDailyCaloricIntake(db,name:str) -> list:
     return db[name]["caloriesConsumed"]
-        
-    
 
-        
-
-    
-    
+# returns list of dates
+def getDates(db, name:str) -> list:
+    return db[name]["dates"]
     
