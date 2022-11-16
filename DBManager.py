@@ -76,6 +76,15 @@ def recordDailyIntake(db,name:str) -> bool:
     print("Calories successfully recorded!")
     return True
 
+#SETTER METHODS
+def setWeight(db:dict,name:str,new_weight:float):
+    db[name]["weight"] = new_weight
+    #Push data into database file
+    with open("db.json","w") as db_file:
+        json.dump(db,db_file)
+    
+
+#GETTER METHODS
 # returns list of daily caloric intake
 def getDailyCaloricIntake(db,name:str) -> list:
     return db[name]["caloriesConsumed"]
@@ -97,6 +106,9 @@ def getDOB(db,name:str) -> list:
     dateOfBirth = db[name]["DOB"].split(' ')
     dateOfBirth = dateOfBirth[0].split('-')
     return dateOfBirth
+
+def getWeight(db,name:str)->float:
+    return db[name]["weight"]
 
 #calculate age using DOB and today's date
 def getAge(db,name:str) -> int:
