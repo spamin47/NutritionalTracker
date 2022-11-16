@@ -81,12 +81,15 @@ if __name__ == '__main__':
 #     "Today_date":"##/##/##"    
 # }
 with open("db.json","r") as db:
-    database = json.load(db)
+    database:dict = json.load(db)
 
 #logging in
 username = str(input("Enter your username: "))
 if(DBManager.checkForUser(database,username)):
-    print("User found!")
+    print("---Info---")
+    print("Sex: "+DBManager.getSex(database,username))
+    print("Age: "+ str(DBManager.getAge(database,username)))
+    print("Height: " + DBManager.getHeight(database,username))
 else:
     #create a new user data
     DBManager.createNewUser(database)
