@@ -37,31 +37,31 @@ if __name__ == '__main__':
     # # with open("test.json","w") as testFile:
     # #     json.dump(testDict,testFile)
 
-    with open('test.json','r') as testFile:
-        data = json.load(testFile)
+    # with open('test.json','r') as testFile:
+    #     data = json.load(testFile)
 
-    # Testing for graphing from Json file with given format(name will change depending on what the user inputs), place after user intake for the day
+    # # Testing for graphing from Json file with given format(name will change depending on what the user inputs), place after user intake for the day
 
-    # define x and y axis plot points, turn on grid
-    xAxis = data["john4"]["dates"]
-    yAxis = data["john4"]["caloriesConsumed"]
-    plt.grid(True)
+    # # define x and y axis plot points, turn on grid
+    # xAxis = data["john4"]["dates"]
+    # yAxis = data["john4"]["caloriesConsumed"]
+    # plt.grid(True)
 
-    # plots dates and calories
-    plt.plot(xAxis, yAxis, color = 'blue', marker = 'o')
-    plt.xlabel('date')
-    plt.ylabel('calories')
+    # # plots dates and calories
+    # plt.plot(xAxis, yAxis, color = 'blue', marker = 'o')
+    # plt.xlabel('date')
+    # plt.ylabel('calories')
 
     # fig = plt.figure()
     # plt.bar(xAxis, yAxis, color = 'maroon')
     # plt.xlabel('day')
     # plt.ylabel('calories')
 
-    plt.show()
+    # plt.show()
 
 
 
-## Uncomment to reset database. Make sure to delete database file before hand
+# # Uncomment to reset database. Make sure to delete database file before hand
 # JSON_DATABASE = {
 #     "test_user":{ #each element is a different user
 #         "weight":"#lbs",
@@ -71,7 +71,7 @@ if __name__ == '__main__':
         
 #     } 
 # }
-# with open("db.json","w") as testFile:
+# with open("test2.json","w") as testFile:
 #         json.dump(JSON_DATABASE,testFile)
 # user = {
 #     "name1":"name",

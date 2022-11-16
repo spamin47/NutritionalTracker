@@ -53,6 +53,9 @@ def recordDailyIntake(db,name:str) -> bool:
         json.dump(db,db_file)
     print("Calories successfully recorded!")
     return True
+
+def getDailyCaloricIntake(db,name:str) -> list:
+    return db[name]["caloriesConsumed"]
         
     
 
