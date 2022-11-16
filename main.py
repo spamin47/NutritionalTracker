@@ -28,18 +28,6 @@ if __name__ == '__main__':
     # plt.plot(xpoints,ypoints)
     # plt.show()
     
-    # testData = "data1"
-    # testDict = {
-    #     "dataset1": [] 
-    # }
-    # testDict["dataset1"].append(1)
-    # print(testDict["dataset1"])
-    # # with open("test.json","w") as testFile:
-    # #     json.dump(testDict,testFile)
-
-    # with open('test.json','r') as testFile:
-    #     data = json.load(testFile)
-
     # # Testing for graphing from Json file with given format(name will change depending on what the user inputs), place after user intake for the day
 
     # # define x and y axis plot points, turn on grid
@@ -71,7 +59,7 @@ if __name__ == '__main__':
         
 #     } 
 # }
-# with open("test2.json","w") as testFile:
+# with open("db.json","w") as testFile:
 #         json.dump(JSON_DATABASE,testFile)
 # user = {
 #     "name1":"name",
@@ -89,6 +77,7 @@ if(DBManager.checkForUser(database,username)):
     print("---Info---")
     print("Sex: "+DBManager.getSex(database,username))
     print("Age: "+ str(DBManager.getAge(database,username)))
+    print("Weight: " + str(DBManager.getWeight(database,username)) +"lbs")
     print("Height: " + DBManager.getHeight(database,username))
 else:
     #create a new user data
