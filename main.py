@@ -83,12 +83,13 @@ if __name__ == '__main__':
 with open("db.json","r") as db:
     database = json.load(db)
 
-
+#logging in
 username = str(input("Enter your username: "))
 if(DBManager.checkForUser(database,username)):
     print("User found!")
 else:
+    #create a new user data
     DBManager.createNewUser(database)
-    
+#Ask for user calorie intake
 while not DBManager.recordDailyIntake(database,username):
     print()

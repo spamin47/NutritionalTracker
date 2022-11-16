@@ -34,7 +34,11 @@ def recordDailyIntake(db,name:str) -> bool:
         caloriesRecorded = float(input("Calories: ")) #Ask for calories consumed
     except:
         print("Invalid input. Please enter a valid value.")
-        return False
+        retry = str(input("Re enter input? ")).lower()
+        if (retry == "yes" or retry == "y" or retry == 1):
+            return False
+        
+        return True
 
     dailyCalorieIntake_arr = db[name]["caloriesConsumed"] #array of daily caloric intake
     datesRecorded_arr = db[name]["dates"] #array of dates recorded
