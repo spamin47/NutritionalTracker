@@ -82,21 +82,28 @@ if(DBManager.checkForUser(database,username)):
 else:
     #create a new user data
     DBManager.createNewUser(database)
+    
+
+
 #Ask for user calorie intake
 while not DBManager.recordDailyIntake(database,username):
     print()
 
+print("1. Display profile information.")
+print("2. Record calories for today.")
+print("3. Update weight.")
+option = int(input(""))
 
 # # plot given user daily caloric intake
-# # define x and y axis points, title of graph
-# xAxis = DBManager.getDates(database, username)
-# yAxis = DBManager.getDailyCaloricIntake(database, username)
-# title = 'Daily Caloric Intake for ' + username.capitalize()
+# define x and y axis points, title of graph
+xAxis = DBManager.getDates(database, username)
+yAxis = DBManager.getDailyCaloricIntake(database, username)
+title = 'Daily Caloric Intake for ' + username.capitalize()
 
-# # plot data as line graph + extra formatting
-# plt.plot(xAxis, yAxis, color = 'red', marker = 'o')
-# plt.grid(True)
-# plt.title(title)
-# plt.xlabel('Date')
-# plt.ylabel('Calorie Count')
-# plt.show()
+# plot data as line graph + extra formatting
+plt.plot(xAxis, yAxis, color = 'red', marker = 'o')
+plt.grid(True)
+plt.title(title)
+plt.xlabel('Date')
+plt.ylabel('Calorie Count')
+plt.show()
