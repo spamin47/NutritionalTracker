@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import json as json
 import DBManager
+import DataVisualizer as dv
 from datetime import datetime
 # This is a sample Python script.
 
@@ -23,31 +24,6 @@ if __name__ == '__main__':
     print(sys.executable)
     print("test")
     
-    # xpoints = np.array([0,6])
-    # ypoints = np.array([0,250])
-    # plt.plot(xpoints,ypoints)
-    # plt.show()
-    
-    # # Testing for graphing from Json file with given format(name will change depending on what the user inputs), place after user intake for the day
-
-    # # define x and y axis plot points, turn on grid
-    # xAxis = data["john4"]["dates"]
-    # yAxis = data["john4"]["caloriesConsumed"]
-    # plt.grid(True)
-
-    # # plots dates and calories
-    # plt.plot(xAxis, yAxis, color = 'blue', marker = 'o')
-    # plt.xlabel('date')
-    # plt.ylabel('calories')
-
-    # fig = plt.figure()
-    # plt.bar(xAxis, yAxis, color = 'maroon')
-    # plt.xlabel('day')
-    # plt.ylabel('calories')
-
-    # plt.show()
-
-
 
 # # Uncomment to reset database. Make sure to delete database file before hand
 # JSON_DATABASE = {
@@ -68,6 +44,7 @@ if __name__ == '__main__':
 #     "caloriesConsumed": [], #each element is a different day
 #     "Today_date":"##/##/##"    
 # }
+
 with open("db.json","r") as db:
     database:dict = json.load(db)
 
@@ -75,7 +52,7 @@ with open("db.json","r") as db:
 username = str(input("Enter your username: "))
 if(DBManager.checkForUser(database,username)):
     print("---Info---")
-    print("Sex: "+DBManager.getSex(database,username))
+    print("Sex: "+ DBManager.getSex(database,username))
     print("Age: "+ str(DBManager.getAge(database,username)))
     print("Weight: " + str(DBManager.getWeight(database,username)) +"lbs")
     print("Height: " + DBManager.getHeight(database,username))
@@ -84,26 +61,30 @@ else:
     DBManager.createNewUser(database)
     
 
+dv.generateGraph(database, username)
+# #Ask for user calorie intake
+# while not DBManager.recordDailyIntake(database,username):
+#     print()
 
-#Ask for user calorie intake
-while not DBManager.recordDailyIntake(database,username):
-    print()
+# DBManager.recordCurrentWeight(database, username)
 
-print("1. Display profile information.")
-print("2. Record calories for today.")
-print("3. Update weight.")
-option = int(input(""))
+# print("1. Display profile information.")
+# print("2. Record calories for today.")
+# print("3. Update weight.")
+# option = int(input(""))
+
+
 
 # # plot given user daily caloric intake
 # define x and y axis points, title of graph
-xAxis = DBManager.getDates(database, username)
-yAxis = DBManager.getDailyCaloricIntake(database, username)
-title = 'Daily Caloric Intake for ' + username.capitalize()
+# xAxis = DBManager.getDates(database, username)
+# yAxis = DBManager.getDailyCaloricIntake(database, username)
+# title = 'Daily Caloric Intake for ' + username.capitalize()
 
-# plot data as line graph + extra formatting
-plt.plot(xAxis, yAxis, color = 'red', marker = 'o')
-plt.grid(True)
-plt.title(title)
-plt.xlabel('Date')
-plt.ylabel('Calorie Count')
-plt.show()
+# # plot data as line graph + extra formatting
+# plt.plot(xAxis, yAxis, color = 'red', marker = 'o')
+# plt.grid(True)
+# plt.title(title)
+# plt.xlabel('Date')
+# plt.ylabel('Calorie Count')
+# plt.show()
