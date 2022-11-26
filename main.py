@@ -4,6 +4,8 @@ import numpy as np
 import json as json
 import DBManager
 from datetime import datetime
+import NutritionCalculator
+import math
 # This is a sample Python script.
 
 # Press Shift+F10 to execute it or replace it with your code.
@@ -78,21 +80,48 @@ if(DBManager.checkForUser(database,username)):
     print("Sex: "+DBManager.getSex(database,username))
     print("Age: "+ str(DBManager.getAge(database,username)))
     print("Weight: " + str(DBManager.getWeight(database,username)) +"lbs")
-    print("Height: " + DBManager.getHeight(database,username))
+    print("Height: " + DBManager.getHeightStr(database,username))
+    sex:str = DBManager.getSex(database,username)
+    weight:float = DBManager.getWeight(database,username)
+    age:int = DBManager.getAge(database,username)
+    height_ft = DBManager.getHeight(database,username)[0]
+    height_in = DBManager.getHeight(database,username)[1]
+    height_ft_in = [height_ft,height_in]
 else:
     #create a new user data
     DBManager.createNewUser(database)
     
-
-
-#Ask for user calorie intake
-while not DBManager.recordDailyIntake(database,username):
-    print()
-
 print("1. Display profile information.")
 print("2. Record calories for today.")
 print("3. Update weight.")
+print("4. My BMR")
 option = int(input(""))
+match option:
+    case 1:
+        #Display info
+        print("---Info---")
+        print("Sex: "+sex)
+        print("Age: "+ str(age))
+        print("Weight: " + str(weight) +"lbs")
+        height_cm:float = NutritionCalculator.HeightToCm(height_ft,height_in)
+        print("Height: " + DBManager.getHeightStr(database,username) + " (" +str(height_cm)+ "cm)")
+        
+    case 2:
+        #Ask for user calorie intake
+        while not DBManager.recordDailyIntake(database,username):
+            print()
+    case 3:
+        newWeight:float = float(input("New Weight: "))
+        DBManager.setWeight(database,username,newWeight)
+    case 4:
+        if sex == "male":
+            print("BMR: " + str(NutritionCalculator.Male_BMR(weight,height_ft_in,age)))
+        else:
+            print("BMR: " + str(NutritionCalculator.Female_BMR(weight,height_ft_in,age)))  
+    case _:
+        print("Invalid input")
+    
+
 
 # # plot given user daily caloric intake
 # define x and y axis points, title of graph
