@@ -1,6 +1,7 @@
 import json
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+import NutritionCalculator
 
 #check if user exist in database
 def checkForUser(db, name:str) -> bool:
@@ -111,8 +112,12 @@ def getSex(db,name:str) -> str:
     return db[name]["sex"]
 
 #return string of height _ft _in
-def getHeight(db,name:str)-> str:
+def getHeightStr(db,name:str)-> str:
     return str(db[name]["height"][0]) + "ft " + str(db[name]["height"][1]) + "in"
+
+#return height  [ft,in]
+def getHeight(db,name:str)->list:
+    return [db[name]["height"][0],db[name]["height"][1]]
 
 #return DOB
 def getDOB(db,name:str) -> list:
