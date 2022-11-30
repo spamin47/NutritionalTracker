@@ -35,6 +35,7 @@ def createNewUser(db):
     #User's info
     db[str(username)] = {
         "weight": weight,
+        "weightsRecorded": [0],
         "DOB": str(DOB_stripped),
         "sex": sex,
         "height": [height_ft,height_in],
@@ -76,6 +77,18 @@ def recordDailyIntake(db,name:str) -> bool:
         json.dump(db,db_file)
     print("Calories successfully recorded!")
     return True
+
+# record current weight into weight records
+def recordCurrentWeight(db, name:str):
+    currentWeight       = db[name]["weight"] # current recorded weight value
+    datesRecorded_arr   = db[name]["dates"] # array of dates recorded
+    weightsRecorded     = db[name]["weightsRecorded"] # array of weights recorded
+
+    if(datesRecorded_arr[-1] == datetime.today().strftime("%m/%d/%Y")): # Date format: (mm/dd/yyyy)
+        weightsRecorded[-1] = currentWeight
+    else:
+        #add a try method here to check if value is a number or not
+        weightsRecorded.append(currentWeight)
 
 #SETTER METHODS
 def setWeight(db:dict,name:str,new_weight:float):
@@ -121,3 +134,6 @@ def getAge(db,name:str) -> int:
     dob = datetime(int(dob[0]),int(dob[1]),int(dob[2]),0,0,0,0)
     now = datetime.now()
     return int(relativedelta(now,dob).years)
+
+def getWeightsRecorded(db, name:str) -> list:
+    return db[name]["weightsRecorded"]

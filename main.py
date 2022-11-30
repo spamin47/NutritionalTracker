@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import json as json
 import DBManager
+import DataVisualizer as dv
 from datetime import datetime
 import NutritionCalculator
 # This is a sample Python script.
@@ -24,31 +25,6 @@ if __name__ == '__main__':
     print(sys.executable)
     print("test")
     
-    # xpoints = np.array([0,6])
-    # ypoints = np.array([0,250])
-    # plt.plot(xpoints,ypoints)
-    # plt.show()
-    
-    # # Testing for graphing from Json file with given format(name will change depending on what the user inputs), place after user intake for the day
-
-    # # define x and y axis plot points, turn on grid
-    # xAxis = data["john4"]["dates"]
-    # yAxis = data["john4"]["caloriesConsumed"]
-    # plt.grid(True)
-
-    # # plots dates and calories
-    # plt.plot(xAxis, yAxis, color = 'blue', marker = 'o')
-    # plt.xlabel('date')
-    # plt.ylabel('calories')
-
-    # fig = plt.figure()
-    # plt.bar(xAxis, yAxis, color = 'maroon')
-    # plt.xlabel('day')
-    # plt.ylabel('calories')
-
-    # plt.show()
-
-
 
 # # Uncomment to reset database. Make sure to delete database file before hand
 # JSON_DATABASE = {
@@ -69,6 +45,7 @@ if __name__ == '__main__':
 #     "caloriesConsumed": [], #each element is a different day
 #     "Today_date":"##/##/##"    
 # }
+
 with open("db.json","r") as db:
     database:dict = json.load(db)
 
@@ -84,7 +61,7 @@ if(DBManager.checkForUser(database,username)):
     height_ft_in = [height_ft,height_in]
     #Display info
     print("---Info---")
-    print("Sex: "+sex)
+    print("Sex: "+ sex)
     print("Age: "+ str(age))
     print("Weight: " + str(weight) +"lbs")
     height_cm:float = NutritionCalculator.HeightToCm(height_ft,height_in)
@@ -144,4 +121,7 @@ while(option != 0):
             print("Invalid input")
     
 
-
+dv.generateGraph(database, username)
+# #Ask for user calorie intake
+# while not DBManager.recordDailyIntake(database,username):
+#     print()
