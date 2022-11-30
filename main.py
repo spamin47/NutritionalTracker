@@ -88,3 +88,6 @@ dv.generateGraph(database, username)
 # plt.xlabel('Date')
 # plt.ylabel('Calorie Count')
 # plt.show()
+
+# weight loss per calorie loss 
+# incorporate some anonymous functions , frontend 

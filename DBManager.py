@@ -34,7 +34,7 @@ def createNewUser(db):
     #User's info
     db[str(username)] = {
         "weight": weight,
-        "weightsRecorded": [weight],
+        "weightsRecorded": [0],
         "DOB": str(DOB_stripped),
         "sex": sex,
         "height": [height_ft,height_in],
