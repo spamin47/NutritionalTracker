@@ -29,8 +29,7 @@ def generateGraph(db, name:str) -> bool:
     w = 0.25 # bar width
     x = np.arange(len(xAxis)) # x ticks 
     plt.xticks(x, xAxis) # label x ticks with dates
-
-
+    
     # switch statements determines which graph type to generate
     match option:
         case 1:
