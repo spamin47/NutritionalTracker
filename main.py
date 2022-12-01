@@ -79,6 +79,7 @@ while(option != 0):
     print("3. Update weight.")
     print("4. My BMR")
     print("5. Show my daily intake graph.")
+    print("6. Check Progress towards calorie goal")
     option = int(input(""))
     print("")
     match option:
@@ -92,9 +93,10 @@ while(option != 0):
             height_cm:float = NutritionCalculator.HeightToCm(height_ft,height_in)
             print("Height: " + DBManager.getHeightStr(database,username) + " (" +str(height_cm)+ "cm)")
             
-        case 2:#Ask for user calorie intake
+        case 2: #Ask for user calorie intake, record weight
             while not DBManager.recordDailyIntake(database,username):
                 print()
+            DBManager.recordCurrentWeight(database, username)
         case 3: #Change weight
             newWeight:float = float(input("New Weight: "))
             DBManager.setWeight(database,username,newWeight)
@@ -104,24 +106,13 @@ while(option != 0):
             else:
                 print("You burn " + str(NutritionCalculator.Female_BMR(weight,height_ft_in,age)) + " calories during a typical day.")  
         case 5:
-            # # plot given user daily caloric intake
-            # define x and y axis points, title of graph
-            xAxis = DBManager.getDates(database, username)
-            yAxis = DBManager.getDailyCaloricIntake(database, username)
-            title = 'Daily Caloric Intake for ' + username.capitalize()
-
-            # plot data as line graph + extra formatting
-            plt.plot(xAxis, yAxis, color = 'red', marker = 'o')
-            plt.grid(True)
-            plt.title(title)
-            plt.xlabel('Date')
-            plt.ylabel('Calorie Count')
-            plt.show()
+            while not (dv.generateGraph(database, username)) :
+                print()
+        case 6:
+            activityLevel = 1.55
+            if sex == "male":
+                dv.checkProgress(database, username, NutritionCalculator.AMR(NutritionCalculator.Male_BMR(weight, height_ft_in, age), activityLevel))
+            else:
+                dv.checkProgress(database, username, NutritionCalculator.AMR(NutritionCalculator.Female_BMR(weight, height_ft_in, age), activityLevel))
         case _:
             print("Invalid input")
-    
-
-dv.generateGraph(database, username)
-# #Ask for user calorie intake
-# while not DBManager.recordDailyIntake(database,username):
-#     print()
