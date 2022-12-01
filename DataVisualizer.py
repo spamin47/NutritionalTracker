@@ -10,8 +10,7 @@ def generateGraph(db, name:str) -> bool:
     print("1. Line Graph")
     print("2. Bar Graph")
     print("3. Line + Bar Graph")
-    print("4. Check Progress Towards Calorie Goal")
-    option = int(input("Select option 1, 2, 3, or 4: "))
+    option = int(input("Select option 1, 2, 3: "))
     
     # graph
     xAxis           = dbm.getDates(db, name) # x-Axis of the graph
@@ -29,10 +28,16 @@ def generateGraph(db, name:str) -> bool:
     w = 0.25 # bar width
     x = np.arange(len(xAxis)) # x ticks 
     plt.xticks(x, xAxis) # label x ticks with dates
-    
+
     # switch statements determines which graph type to generate
     match option:
         case 1:
+            # dual axis line graph
+            solid       = (0, (10, 0)) # solid linestyle 
+            dashed      = (0, (10, 6)) # dashed linestyle 
+            calories    = ax1.plot(x, yAxis1, linestyle = solid, color = calorieColor, marker = 'o', label = "Calories", alpha = alphaVal)
+            weight      = ax2.plot(x, yAxis2, linestyle = dashed, color = weightColor, marker = 'v', label = "Weight(lbs)", alpha = alphaVal)
+        case 2:
             # dual axis bar graph: calories = calorie graph, weight = weight graph
             # calories positioned to the left of tick mark, weight positioned to the right
             calories    = ax1.bar(x - w/2, yAxis1, color = calorieColor, width = w, align = 'center', label = "Calories")
@@ -40,19 +45,10 @@ def generateGraph(db, name:str) -> bool:
             # label bars with values
             ax1.bar_label(calories, padding = 1)
             ax2.bar_label(weight, padding = 1)
-        case 2:
-            # dual axis line graph
-            solid       = (0, (10, 0)) # solid linestyle 
-            dashed      = (0, (10, 6)) # dashed linestyle 
-            calories    = ax1.plot(x, yAxis1, linestyle = solid, color = calorieColor, marker = 'o', label = "Calories", alpha = alphaVal)
-            weight      = ax2.plot(x, yAxis2, linestyle = dashed, color = weightColor, marker = 'v', label = "Weight(lbs)", alpha = alphaVal)
         case 3:
             # dual axis line + bar graph
-            calories    = ax1.plot(x, yAxis2, color = calorieColor, marker = 'o', label = "Calorie", alpha = alphaVal)
-            weight      = ax2.bar(x, yAxis1, color = weightColor, width = w, align = 'center', label = "Weight(lbs)", alpha = alphaVal)
-        case 4:
-            # check progress towards calorie goal: graphs recorded daily caloric intake and compares with target caloric intake
-            print("not implemented yet")
+            calories    = ax1.bar(x, yAxis1, color = calorieColor, width = w, align = 'center', label = "Calories", alpha = alphaVal)
+            weight      = ax2.plot(x, yAxis2, color = weightColor, marker = 'o', label = "Weight(lbs)", alpha = alphaVal)
         case _:
             print("invalid input")
             return False
@@ -75,3 +71,22 @@ def generateGraph(db, name:str) -> bool:
 
     # returns true if graph generated sucessfully
     return True
+
+# check progress towards calorie goal: graphs recorded daily caloric intake and compares with target caloric intake
+def checkProgress(db, name:str, AMR):
+    xAxis= dbm.getDates(db, name)
+    yAxis= dbm.getDailyCaloricIntake(db, name)
+    calorieColor= "#eb891a" # HEX for calories on graph
+    goalColor= "#68de1f"
+    alphaVal= 0.8
+
+    x = np.arange(len(xAxis)) # x ticks 
+    plt.xticks(x, xAxis) # label x ticks with dates
+    plt.axhline(y = AMR, color = goalColor, linestyle = '-', label = "Goal", alpha = alphaVal)
+    plt.plot(x, yAxis, color = calorieColor, marker = 'o', label = "Calories", alpha = alphaVal)
+
+    plt.xlabel("Dates")
+    plt.ylabel("Daily Recorded Caloric Intake", color = calorieColor)
+    plt.title("Calorie Goal for " + name)
+    plt.legend(loc="upper left")
+    plt.show()

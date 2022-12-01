@@ -84,11 +84,15 @@ def recordCurrentWeight(db, name:str):
     datesRecorded_arr   = db[name]["dates"] # array of dates recorded
     weightsRecorded     = db[name]["weightsRecorded"] # array of weights recorded
 
-    if(datesRecorded_arr[-1] == datetime.today().strftime("%m/%d/%Y")): # Date format: (mm/dd/yyyy)
+    if len(weightsRecorded) == len(datesRecorded_arr):
         weightsRecorded[-1] = currentWeight
-    else:
+    elif len(weightsRecorded) < len(datesRecorded_arr):
         #add a try method here to check if value is a number or not
         weightsRecorded.append(currentWeight)
+
+    #Push data into database file
+    with open("db.json","w") as db_file:
+        json.dump(db,db_file)
 
 #SETTER METHODS
 def setWeight(db:dict,name:str,new_weight:float):
