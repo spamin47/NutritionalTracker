@@ -23,8 +23,6 @@ if __name__ == '__main__':
     print("Num of arguments: " + str(len(sys.argv)))
     print("print argument list",str(sys.argv))
     print(sys.executable)
-    print("test")
-    
 
 # # Uncomment to reset database. Make sure to delete database file before hand
 # JSON_DATABASE = {
